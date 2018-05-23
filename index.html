@@ -1,0 +1,96 @@
+<html>
+    <head>
+        <!--<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>-->
+        <script src="./vue.js"></script>
+        <style type="text/css">
+
+
+        </style>
+        <script type="application/javascript">
+            var todoList = [
+                {
+                    title: 'learn vuejs',
+                    description: 'start learn vuejs',
+                    done: false
+                },
+                {
+                    title: 'Add blackfire into docker',
+                    description: 'Adding blackfire into docker to perform analysis',
+                    done: false
+                },
+                {
+                    title: 'website training',
+                    description: 'Train on website to master it',
+                    done: false
+                },
+            ];
+        </script>
+    </head>
+    <body>
+        <div id="todo">
+            <span>Todolist</span>
+            <ul>
+                <li v-for="(todo, index) in todos">
+                    <div>
+                        <div>{{ todo.title }}</div>
+                        <div>{{ todo.description }}</div>
+                        <div>{{ todo.status }}</div>
+                        <div><button v-on:click="removeElement(index)">Delete</button></div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div id="form-todo">
+            <h2>Add new todo</h2>
+            <form v-on:submit.prevent="submit">
+                <div>
+                    <span>Title</span><input type="text" name="title" placeholder="title" v-model="title"/>
+                </div>
+                <div>
+                    <span>Description</span><textarea name="description" placeholder="description" v-model="description"></textarea>
+                </div>
+                <div>
+                    <span>Status</span><input type="checkbox" name="status" v-model="status" />
+                </div>
+                <div><button type="submit" id="form-submit">Submit</button> </div>
+            </form>
+        </div>
+
+    </body>
+
+    <script type="application/javascript">
+        var app = new Vue({
+            el: '#todo',
+            data: {
+                todos: todoList
+            },
+            methods: {
+                removeElement: function (index){
+                    this.todos.splice(index, 1);
+                }
+            }
+        });
+
+        var form = new Vue({
+            el: '#form-todo',
+            data: {
+                title: "my title",
+                description: "lorem ipsum ...",
+                status: true,
+            },
+            methods: {
+                submit: function () {
+                    todoList.push({
+                        title: this.title,
+                        description: this.description,
+                        status: this.status
+                    });
+                }
+            }
+        });
+
+        //next step use an external API to fetch / update data
+    </script>
+
+</html>
